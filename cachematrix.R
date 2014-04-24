@@ -1,35 +1,37 @@
-## The first function creates a matrix that is stored in R cache.  
-## The second function gets the value of the matrix, checks if it similar with the cached matrix and checks if the inverse
-##has been calculated. If the matrixes are similar and the inverse is already calculated, it retrives the inverse
-##from cahce. Otherwise, it calculates and displays the inverse. 
-
-## This function takes an user matrix argument; sets its value; gets the value; sets its inverse; gets the inverse.
+ ## This function creates the special matrix. 
 
 makeCacheMatrix <- function(x=matrix()){
-	inv <- NULL
-	set <- function(y){
-		x <<- y
-		inv <<- NULL
+	
+	set <- function(x,y,z){                
+               p <<- matrix(x,nrow=y,ncol=y)   # create cache matrix using the user's arguments
+               pinverse <<- NULL               # assign NULL cache value to the inverse
 	}
-	get <- function() x
-	setinv <- function(solve) inv <<- solve
-	getinv <- function() inv
-	list(set=set,get=get,setinv=setinv,getinv=getinv)
+	
+	set_inverse <- function() {            
+		pinverse <<- solve(p)          #solves p matrix and assigns the value the inverse variable which is cached
+		pinverse                 
+                } 
+
+    get <- function() p	                       # get value of matrix
+    get_inverse <- function() pinverse	       # get value of the inverse
+
+list(set=set,set_inverse=set_inverse,get=get,get_inverse=get_inverse)
 }
 
-## This function takes a matrix argument; checks if the matrix is similar with the one created with previous function; 
-##if similar and the inverse is already calculated, it prints the inverse from cache. Otherwise, it computes and prints
-## the inverse. 
+## This function retrives the cache value for the inverse if already calculated. If the inverse does not exists
+## it calculates it.
 
-cachesolve <- function(x, ...) {
-        p <- x$get()
-        inv <- x$getinv()
-        if(identical(x,p) & !is.null(inv)) {
-                message("getting cached data")
-                return(inv)
-        }
-        matrix <- x$get()
-        inv <- solve(matrix, ...)
-        x$setinv(inv)
-        inv
+cacheSolve <- function(x, ...) {
+        c <- x$get()                           # get the value of the matrix created with the previous function
+        c_inv <- x$get_inverse()               # get the value of the inverse matrix
+         
+        if (identical(c,p) & !is.null(c_inv))  # checks if matrixes are identical AND IF value of inverse is NULL
+        {
+        	message("getting cached data!!") 
+        	pinverse                       # prints cached inverse
+        } else  {
+        	showinverse <- solve(c)        # calculates the inverse
+        	showinverse                    # returns the inverse
+                }
+        
 }
