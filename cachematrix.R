@@ -5,6 +5,7 @@
 ## This function creates the special matrix. 
 
 makeCacheMatrix <- function(x=matrix()){
+        pinverse <- NULL                       # set value of the inverse to NULL
 	
 	set <- function(x,y,z){                
                p <<- matrix(x,nrow=y,ncol=y)   # create cache matrix using the user's arguments
