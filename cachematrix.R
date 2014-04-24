@@ -1,4 +1,8 @@
- ## This function creates the special matrix. 
+## The functions in this file are ment to create a matrix, store it to R cache, calculate its inverse and store it
+## in cache and retrive the inverse from cache. 
+
+
+## This function creates the special matrix. 
 
 makeCacheMatrix <- function(x=matrix()){
 	
@@ -8,7 +12,7 @@ makeCacheMatrix <- function(x=matrix()){
 	}
 	
 	set_inverse <- function() {            
-		pinverse <<- solve(p)          #solves p matrix and assigns the value the inverse variable which is cached
+		pinverse <<- solve(p)          #calculate inverse and store it in cache
 		pinverse                 
                 } 
 
